@@ -7,7 +7,7 @@ service /logService on new http:Listener(9090) {
     // Resource function to handle GET requests at the root path
     resource function get .(http:Caller caller, http:Request req) returns error? {
         // Attempt to retrieve the 'X-Debug-Log' header
-        string? debugLogHeader = check req.getHeader("X-Debug-Log");
+        string|error debugLogHeader = req.getHeader("X-Debug-Log");
 
         if debugLogHeader is string {
             // Log the header value if present
